@@ -9,6 +9,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private float turnSpeed = 2f;
     [SerializeField] private float backSpeed = 2f;
     [SerializeField] private float runSpeed = 4f;
+    [SerializeField] private float jumpHeight = 4f;
 
     //private bool isRunning = false;
 
@@ -40,7 +41,15 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
             transform.Rotate(Time.deltaTime * turnSpeed * Vector3.up);
 
-        animator.SetFloat("moveSpeed", Input.GetAxis("Vertical"));
+        if (Input.GetKey(KeyCode.Space))
+            transform.position += Time.deltaTime * jumpHeight * transform.up;
+
+        if (Input.GetKey(KeyCode.Mouse1))
+        {
+            
+        }
+
+            animator.SetFloat("moveSpeed", Input.GetAxis("Vertical"));
 
         if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
         {
@@ -49,6 +58,15 @@ public class Movement : MonoBehaviour
         else
         {
             animator.SetBool("isRunning", false);
+        }
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            animator.SetBool("isJumping", true);
+        }
+        else
+        {
+            animator.SetBool("isJumping", false);
         }
 
     }
